@@ -18,10 +18,9 @@ let Https = null;
 let Http = null;
 let Express = null;
 
-let _ = require( '../Tools.s' );
-let _ = _global_.wTools;
+let _ = require( '../../Tools.s' );
 
-_.include( 'wPathFundamentals' );
+_.include( 'wUriBasic' );
 _.include( 'wFiles' );
 _.include( 'wConsequence' );
 
@@ -32,82 +31,120 @@ let Self = _.servlet = _.servlet || Object.create( null );
 // servlet
 // --
 
-function controlLoggingPre()
+function serverPathParse( o )
 {
+  let url;
 
-  _.routineOptions( controlLoggingPre, arguments );
-  _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
+  _.routineOptions( serverPathParse, arguments );
 
-  if( !o.servlet.verbosity )
-  return;
+  let parsed = _.uri.parseAtomic( o.serverPath );
 
-  if( o.servlet.verbosity > 2 )
-  {
-    logger.log( '' );
-    logger.logUp( _.strNickName( o.servlet ), ' :' );
-    logger.logDown( '' );
-  }
+  parsed.port = parsed.port || o.port || 5000;
+  if( _.strIs( parsed.port ) )
+  parsed.port = Number( parsed.port );
+  _.sure( _.numberIsFinite( parsed.port ), () => 'Expects number {-o.port-}, but got ' + _.toStrShort( parsed.port ) );
 
+  parsed.full = _.uri.str( parsed );
+
+  parsed = _.uri.parseFull( parsed.full );
+  parsed.port = Number( parsed.port );
+  parsed.localWebPath = parsed.localWebPath || '/';
+  /* xxx qqq : use _.uri.parsedSupplementFull instead of parseFull */
+
+  return parsed;
 }
 
-controlLoggingPre.defaults =
+serverPathParse.defaults =
 {
-  servlet : null,
+  serverPath : 'http://127.0.0.1:5000',
+  port : null,
 }
 
 //
 
-function controlLoggingPost( o )
+function controlExpressStart( o )
 {
+  let url;
 
-  _.routineOptions( controlLoggingPre, arguments );
-  _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
+  _.routineOptions( controlExpressStart, arguments );
+  _.assert( !!o.name, 'Expects {-name-}' );
+  _.assert( _.boolLike( o.usingHttps ), 'Expects {-o.usingHttps-}' );
+  _.assert( _.boolLike( o.allowCrossDomain ), 'Expects {-o.allowCrossDomain-}' );
 
-  if( !o.servlet.verbosity )
-  return;
+  if( !_.numberIs( o.verbosity ) )
+  o.verbosity = o.verbosity ? 1 : 0;
+  if( o.verbosity < 0 )
+  o.verbosity = 0;
+  else if( o.verbosity > 9 )
+  o.verbosity = 9;
+  _.assert( o.verbosity >= 0, 'Expects number {-o.verbosity-}' );
 
-  logger.logUp( 'Properties of', _.strNickName( o.servlet ) );
+  if( !Express )
+  Express = require( 'express' );
 
-  /* db */
+  let parsedServerPath = _.servlet.serverPathParse({ port : o.port, serverPath : o.serverPath });
+  o.serverPath = parsedServerPath.full;
+  o.port = parsedServerPath.port;
+  _.sure( _.numberIsFinite( o.port ), () => 'Expects number {-o.port-}, but got ' + _.toStrShort( o.port ) );
 
-  for( let c in o.servlet )
+  if( !o.express )
+  o.express = Express();
+
+  if( o.server )
+  return o;
+
+  if( o.usingHttps )
   {
-    let component = o.servlet[ c ];
-    if( _.strIs( component ) && _.strBegins( c, 'db' ) )
-    {
-      logger.log( c,  ' :',  component );
-    }
+
+    if( !Https )
+    Https = require( 'https' );
+
+    url = o.serverPath + ':' + o.port;
+
+    o.httpsOptions = o.httpsOptions || Object.create( null );
+    _.assert( o.certificatePath );
+
+    o.httpsOptions.key = o.httpsOptions.key || _.fileProvider.fileRead( o.certificatePath + '.rsa' );
+    o.httpsOptions.cert = o.httpsOptions.cert || _.fileProvider.fileRead( o.certificatePath + '.crt' );
+
+    o.server = Https.createServer( httpsOptions, o.express ).listen( o.port );
+
+  }
+  else
+  {
+
+    if( !Http )
+    Http = require( 'http' );
+
+    url = o.serverPath + ':' + o.port;
+    o.server = Http.createServer( o.express ).listen( o.port );
+
   }
 
-  /* url */
+  if( o.verbosity >= 3 )
+  logger.log( o.name,  ':', 'express.locals :', '' + _.toStrNice( o.express.locals ) );
+  if( o.verbosity )
+  logger.log( o.name,  ':', `serving at ${o.serverPath}..`, '\n' )
 
-  for( let c in o.servlet )
-  {
-    let component = o.servlet[ c ];
-    if( _.strIs( component ) && _.strBegins( c, 'url' ) )
-    {
-      logger.log( c,  ' :',  component );
-    }
-  }
-
-  /* path */
-
-  for( let c in o.servlet )
-  {
-    let component = o.servlet[ c ];
-    if( _.strIs( component ) && _.strBegins( c, 'path' ) )
-    {
-      logger.log( c,  ' :',  component );
-    }
-  }
-
-  logger.logDown( '' );
-
+  return o;
 }
 
-controlLoggingPost.defaults =
+controlExpressStart.defaults =
 {
-  servlet : null,
+
+  verbosity : 1,
+  name : null,
+  serverPath : 'http://127.0.0.1',
+  port : null,
+  allowCrossDomain : 0,
+
+  server : null,
+  express : null,
+
+  usingHttps : 0,
+  httpsOptions : null,
+  certificatePath : null,
+
 }
 
 //
@@ -115,7 +152,7 @@ controlLoggingPost.defaults =
 function controlPathesNormalize( o )
 {
 
-  _.routineOptions( controlLoggingPre, arguments );
+  _.routineOptions( controlPathesNormalize, arguments );
   _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
 
   /* url */
@@ -169,86 +206,6 @@ controlAllowCrossDomain.defaults =
 
 //
 
-function controlExpressStart( o )
-{
-  let url;
-
-  _.routineOptions( controlExpressStart, arguments );
-  _.assert( !!o.name, 'Expects { name }' );
-  _.assert( !!o.port, 'Expects { port }' );
-  _.assert( _.boolLike( o.usingHttps ), 'Expects { usingHttps }' );
-  _.assert( _.boolLike( o.allowCrossDomain ), 'Expects { allowCrossDomain }' );
-  _.assert( _.boolLike( o.verbosity ), 'Expects { verbosity }' );
-
-  if( !Express )
-  Express = require( 'express' );
-
-  if( !o.port )
-  return;
-
-  if( !o.express )
-  o.express = Express();
-
-  if( o.server )
-  return o;
-
-  if( o.usingHttps )
-  {
-
-    if( !Https )
-    Https = require( 'https' );
-
-    url = o.serverPath + ':' + o.port;
-
-    o.httpsOptions = o.httpsOptions || Object.create( null );
-    _.assert( o.certificatePath );
-
-    o.httpsOptions.key = o.httpsOptions.key || _.fileProvider.fileRead( o.certificatePath + '.rsa' );
-    o.httpsOptions.cert = o.httpsOptions.cert || _.fileProvider.fileRead( o.certificatePath + '.crt' );
-
-    o.server = Https.createServer( httpsOptions, o.express ).listen( o.port );
-
-  }
-  else
-  {
-
-    if( !Http )
-    Http = require( 'http' );
-
-    url = o.serverPath + ':' + o.port;
-    o.server = Http.createServer( o.express ).listen( o.port );
-
-  }
-
-  if( o.verbosity >= 2 )
-  logger.log( o.name,  ':',  'express.locals :', '\n' + _.toStrNice( o.express.locals ) );
-  if( o.verbosity )
-  logger.log( o.name,  ':',  'Serving', o.name, 'on', o.port, 'port..', '\n' )
-
-  return o;
-}
-
-controlExpressStart.defaults =
-{
-
-  verbosity : 1,
-  name : null,
-  serverPath : 'http://127.0.0.1',
-  port : null,
-  allowCrossDomain : 0,
-  verbosity : 1,
-
-  server : null,
-  express : null,
-
-  usingHttps : 0,
-  httpsOptions : null,
-  certificatePath : null,
-
-}
-
-//
-
 function controlRequestPreHandle( o )
 {
 
@@ -256,7 +213,7 @@ function controlRequestPreHandle( o )
   _.servlet.controlAllowCrossDomain({ response : o.response });
 
   if( o.verbosity >= 2 )
-  logger.log( 'request : ' + _.servlet.requestUrlGet( o.request ) );
+  logger.log( 'request : ' + _.servlet.requestUriFullGet( o.request ) );
 
 }
 
@@ -275,22 +232,24 @@ function controlRequestPostHandle( o )
 {
   _.routineOptions( controlRequestPostHandle, arguments );
 
-  if( o.response.finished )
-  return o.next( o.request, o.response, o.next );
+  // if( o.response.finished )
+  // return o.next( o.request, o.response, o.next );
 
-  _.servlet.errorHandle
+  if( o.response.finished )
+  return;
+
+  return _.servlet.errorHandle
   ({
     request : o.request,
     response : o.response,
-    err : 'Not found',
     verbosity : o.verbosity,
+    err : _.errBriefly( 'Not found' ),
   });
 
 }
 
 controlRequestPostHandle.defaults =
 {
-  allowCrossDomain : 0,
   verbosity : 1,
   request : null,
   response : null,
@@ -299,10 +258,92 @@ controlRequestPostHandle.defaults =
 
 //
 
-function requestUrlGet( request )
+function controlLoggingPre( o )
+{
+
+  _.routineOptions( controlLoggingPre, arguments );
+  _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
+
+  if( !o.servlet.verbosity )
+  return;
+
+  if( o.servlet.verbosity > 2 )
+  {
+    logger.log( '' );
+    logger.logUp( _.strNickName( o.servlet ), ' :' );
+    logger.logDown( '' );
+  }
+
+}
+
+controlLoggingPre.defaults =
+{
+  servlet : null,
+}
+
+//
+
+function controlLoggingPost( o )
+{
+
+  _.routineOptions( controlLoggingPost, arguments );
+  _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
+
+  if( !o.servlet.verbosity )
+  return;
+
+  logger.logUp( 'Properties of', _.strNickName( o.servlet ) );
+
+  /* db */
+
+  for( let c in o.servlet )
+  {
+    let component = o.servlet[ c ];
+    if( _.strIs( component ) && _.strBegins( c, 'db' ) )
+    {
+      logger.log( c,  ' :',  component );
+    }
+  }
+
+  /* url */
+
+  for( let c in o.servlet )
+  {
+    let component = o.servlet[ c ];
+    if( _.strIs( component ) && _.strBegins( c, 'url' ) )
+    {
+      logger.log( c,  ' :',  component );
+    }
+  }
+
+  /* path */
+
+  for( let c in o.servlet )
+  {
+    let component = o.servlet[ c ];
+    if( _.strIs( component ) && _.strBegins( c, 'path' ) )
+    {
+      logger.log( c,  ' :',  component );
+    }
+  }
+
+  logger.logDown( '' );
+
+}
+
+controlLoggingPost.defaults =
+{
+  servlet : null,
+}
+
+// --
+//
+// --
+
+function requestUriFullGet( request )
 {
   _.assert( arguments.length === 1 );
-  let result = request.protocol + '://' + request.get( 'host' ) + request.originalUrl;
+  let result = request.protocol + ':///' + request.get( 'host' ) + request.originalUrl;
   return result;
 }
 
@@ -310,21 +351,23 @@ function requestUrlGet( request )
 
 function errorHandle( o )
 {
-  let err = _.err( o.err || 'Not found' );
+  if( !o.err )
+  o.err = _.errBriefly( 'Not found' );
+  o.err = _.err( o.err );
 
   _.routineOptions( errorHandle, arguments );
 
   if( !o.response.finished )
   {
     o.response.writeHead( 400, { 'Content-Type' : 'text/plain' });
-    o.response.write( 'Error :\n' + err.message );
+    o.response.write( o.err.message );
     o.response.end();
   }
 
   if( o.verbosity )
-  _.errLogOnce( err );
+  _.errLogOnce( o.err );
 
-  return err;
+  return o.err;
 }
 
 errorHandle.defaults =
@@ -349,8 +392,6 @@ function postDataGet( o )
     if( !Querystring )
     Querystring = require( 'querystring' );
   }
-
-  let o = o || {};
 
   if( o.request.readable )
   {
@@ -413,17 +454,18 @@ let Proto =
 
   // servlet
 
-  controlLoggingPre,
-  controlLoggingPost,
+  serverPathParse,
 
+  controlExpressStart, /* qqq : basic coverage required */
   controlPathesNormalize,
   controlAllowCrossDomain,
-  controlExpressStart, /* qqq : basic coverage required */
 
   controlRequestPreHandle,
   controlRequestPostHandle,
+  controlLoggingPre,
+  controlLoggingPost,
 
-  requestUrlGet,
+  requestUriFullGet,
   errorHandle,
   postDataGet,
 

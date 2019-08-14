@@ -22,7 +22,14 @@
     "url": "https://github.com/Wandalen/wServletTools/issues"
   },
   "dependencies": {
-    "wTools": ""
+    "wTools": "",
+    "wFiles": "",
+    "wConsequence": "",
+    "wuribasic": "",
+    "express": "",
+    "morgan": "",
+    "serve-index": "",
+    "querystring": ""
   },
   "devDependencies": {
     "wTesting": ""
