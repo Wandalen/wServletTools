@@ -70,7 +70,7 @@ path :
       content : prime
 
   entry.proto.no.tests :
-    path : proto/dwtools/atop/docgen/MainTop.s
+    path : proto/dwtools/amid/servlet/ServletTools.ss
     criterion :
       tests : 'no.tests'
   entry.proto.only.tests :
@@ -82,7 +82,7 @@ path :
   # npm.files : proto
 
   entry.out.raw.debug :
-    path : '{path::out.*=1}/source/dwtools/atop/docgen/MainTop.s'
+    path : '{path::out.*=1}/source/dwtools/amid/servlet/ServletTools.ss'
     criterion :
       debug : [ debug, release ]
       raw : raw
