@@ -33,11 +33,11 @@ let Self = _.servlet = _.servlet || Object.create( null );
 
 function serverPathParse( o )
 {
-  let url;
+  let uri;
 
   _.routineOptions( serverPathParse, arguments );
 
-  let parsed = _.uri.parseAtomic( o.serverPath );
+  let parsed = _.uri.parseAtomic( o.full );
 
   parsed.port = parsed.port || o.port || 5000;
   if( _.strIs( parsed.port ) )
@@ -49,6 +49,7 @@ function serverPathParse( o )
   parsed = _.uri.parseFull( parsed.full );
   parsed.port = Number( parsed.port );
   parsed.localWebPath = parsed.localWebPath || '/';
+
   /* xxx qqq : use _.uri.parsedSupplementFull instead of parseFull */
 
   return parsed;
@@ -56,7 +57,7 @@ function serverPathParse( o )
 
 serverPathParse.defaults =
 {
-  serverPath : 'http://127.0.0.1:5000',
+  full : 'http://127.0.0.1:5000',
   port : null,
 }
 
@@ -64,7 +65,7 @@ serverPathParse.defaults =
 
 function controlExpressStart( o )
 {
-  let url;
+  let uri;
 
   _.routineOptions( controlExpressStart, arguments );
   _.assert( !!o.name, 'Expects {-name-}' );
@@ -82,7 +83,7 @@ function controlExpressStart( o )
   if( !Express )
   Express = require( 'express' );
 
-  let parsedServerPath = _.servlet.serverPathParse({ port : o.port, serverPath : o.serverPath });
+  let parsedServerPath = _.servlet.serverPathParse({ port : o.port, full : o.serverPath });
   o.serverPath = parsedServerPath.full;
   o.port = parsedServerPath.port;
   _.sure( _.numberIsFinite( o.port ), () => 'Expects number {-o.port-}, but got ' + _.toStrShort( o.port ) );
@@ -99,7 +100,7 @@ function controlExpressStart( o )
     if( !Https )
     Https = require( 'https' );
 
-    url = o.serverPath + ':' + o.port;
+    uri = o.serverPath + ':' + o.port;
 
     o.httpsOptions = o.httpsOptions || Object.create( null );
     _.assert( o.certificatePath );
@@ -107,7 +108,7 @@ function controlExpressStart( o )
     o.httpsOptions.key = o.httpsOptions.key || _.fileProvider.fileRead( o.certificatePath + '.rsa' );
     o.httpsOptions.cert = o.httpsOptions.cert || _.fileProvider.fileRead( o.certificatePath + '.crt' );
 
-    o.server = Https.createServer( httpsOptions, o.express ).listen( o.port );
+    o.server = Https.createServer( httpsOptions, o.express ).listen( o.port, parsedServerPath.host );
 
   }
   else
@@ -116,8 +117,10 @@ function controlExpressStart( o )
     if( !Http )
     Http = require( 'http' );
 
-    url = o.serverPath + ':' + o.port;
-    o.server = Http.createServer( o.express ).listen( o.port );
+    uri = o.serverPath + ':' + o.port;
+    debugger;
+    o.server = Http.createServer( o.express ).listen( o.port, parsedServerPath.host );
+    debugger;
 
   }
 
@@ -155,12 +158,12 @@ function controlPathesNormalize( o )
   _.routineOptions( controlPathesNormalize, arguments );
   _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
 
-  /* url */
+  /* uri */
 
   for( let c in o.servlet )
   {
     let component = o.servlet[ c ];
-    if( _.strIs( component ) && _.strBegins( c, 'url' ) )
+    if( _.strIs( component ) && _.strBegins( c, 'uri' ) )
     {
       if( !component ) continue;
       o.servlet[ c ] = _.path.normalize( o.servlet[ c ] );
@@ -238,12 +241,13 @@ function controlRequestPostHandle( o )
   if( o.response.finished )
   return;
 
+  debugger;
   return _.servlet.errorHandle
   ({
     request : o.request,
     response : o.response,
     verbosity : o.verbosity,
-    err : _.errBriefly( 'Not found' ),
+    err : _.errBrief( `${o.response.req.method} ${o.request.url} - Not found!` ),
   });
 
 }
@@ -270,7 +274,7 @@ function controlLoggingPre( o )
   if( o.servlet.verbosity > 2 )
   {
     logger.log( '' );
-    logger.logUp( _.strNickName( o.servlet ), ' :' );
+    logger.logUp( _.strQualifiedName( o.servlet ), ' :' );
     logger.logDown( '' );
   }
 
@@ -292,7 +296,7 @@ function controlLoggingPost( o )
   if( !o.servlet.verbosity )
   return;
 
-  logger.logUp( 'Properties of', _.strNickName( o.servlet ) );
+  logger.logUp( 'Properties of', _.strQualifiedName( o.servlet ) );
 
   /* db */
 
@@ -305,12 +309,12 @@ function controlLoggingPost( o )
     }
   }
 
-  /* url */
+  /* uri */
 
   for( let c in o.servlet )
   {
     let component = o.servlet[ c ];
-    if( _.strIs( component ) && _.strBegins( c, 'url' ) )
+    if( _.strIs( component ) && _.strBegins( c, 'uri' ) )
     {
       logger.log( c,  ' :',  component );
     }
@@ -352,7 +356,7 @@ function requestUriFullGet( request )
 function errorHandle( o )
 {
   if( !o.err )
-  o.err = _.errBriefly( 'Not found' );
+  o.err = _.errBrief( 'Not found' );
   o.err = _.err( o.err );
 
   _.routineOptions( errorHandle, arguments );
