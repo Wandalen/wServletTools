@@ -23,7 +23,7 @@ about :
 path :
 
   repository : git+https:///github.com/Wandalen/wServletTools.git
-  remotes :
+  origins :
    - git+https:///github.com/Wandalen/wServletTools.git
    - npm:///wservlettools
   bugtracker : https:///github.com/Wandalen/wServletTools/issues
