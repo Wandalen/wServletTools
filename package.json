@@ -18,15 +18,15 @@
   }, 
   "dependencies" : 
   {
-    "wTools" : "", 
-    "wFiles" : "", 
-    "wConsequence" : "", 
-    "wuribasic" : "", 
+    "wTools" : "beta", 
+    "wFiles" : "beta", 
+    "wConsequence" : "beta", 
+    "wuribasic" : "beta", 
     "express" : "", 
     "morgan" : "", 
     "serve-index" : "", 
     "querystring" : ""
   }, 
-  "devDependencies" : { "wTesting" : "" }, 
+  "devDependencies" : { "wTesting" : "beta" }, 
   "keywords" : [ "wTools" ]
 }
