@@ -6,12 +6,13 @@ consistency:
     hash: 6afae2c240c98de01fc47cc6bcf6fd23
     size: 1840
   ../.im.will.yml: &ref_1
-    hash: 9df9c0914769613de58c0b1c32e2ac63
-    size: 5372
+    hash: b04784fddf592a2279abcf1d25447e2b
+    size: 5446
 module:
   wServletTools.out:
     about:
       name: wServletTools
+      org: noorg
       description: >-
         Collection of routines to launch/stop the server and handle requests to
         the server. The module is trying to make the development of server-side
@@ -60,9 +61,6 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       repository:
         path: 'git+https:///github.com/Wandalen/wServletTools.git'
       origins:
@@ -72,15 +70,15 @@ module:
       bugtracker:
         path: 'https:///github.com/Wandalen/wServletTools/issues'
       in:
-        criterion:
-          predefined: 0
         path: .
       out:
-        criterion:
-          predefined: 0
         path: .
       temp:
-        path: 'path::out'
+        path:
+          - 'path::out'
+          - ../package-lock.json
+          - ../package.json
+          - ../node_modules
       proto:
         path: ../proto
       export:
@@ -145,11 +143,13 @@ module:
         path: '{path::out.*=}/source/Index.s'
       exported.dir.proto.export:
         criterion:
+          generated: 1
           content: proto
           export: 1
         path: ../proto
       exported.files.proto.export:
         criterion:
+          generated: 1
           content: proto
           export: 1
         path:
@@ -354,6 +354,7 @@ module:
           prefixPath: ../proto
         mandatory: 1
         criterion:
+          generated: 1
           content: proto
           export: 1
       exported.files.proto.export:
@@ -366,6 +367,7 @@ module:
         recursive: 0
         mandatory: 1
         criterion:
+          generated: 1
           content: proto
           export: 1
     step:
@@ -812,6 +814,7 @@ module:
   ../:
     about:
       name: wServletTools
+      org: noorg
       description: >-
         Collection of routines to launch/stop the server and handle requests to
         the server. The module is trying to make the development of server-side
@@ -853,9 +856,6 @@ module:
       download:
         criterion:
           predefined: 1
-      remote:
-        criterion:
-          predefined: 1
       repository:
         path: 'git+https:///github.com/Wandalen/wServletTools.git'
       origins:
@@ -865,21 +865,21 @@ module:
       bugtracker:
         path: 'https:///github.com/Wandalen/wServletTools/issues'
       in:
-        criterion:
-          predefined: 0
         path: .
       out:
-        criterion:
-          predefined: 0
         path: out
       temp:
-        path: 'path::out'
+        path:
+          - 'path::out'
+          - package-lock.json
+          - package.json
+          - node_modules
       proto:
-        path: ./proto
+        path: proto
       export:
         path: '{path::proto}/**'
       doc:
-        path: ./doc
+        path: doc
       out.raw.debug:
         criterion:
           debug: debug
@@ -1525,5 +1525,5 @@ module:
         hash: 6afae2c240c98de01fc47cc6bcf6fd23
         size: 1840
       ../.im.will.yml:
-        hash: 9df9c0914769613de58c0b1c32e2ac63
-        size: 5372
+        hash: b04784fddf592a2279abcf1d25447e2b
+        size: 5446

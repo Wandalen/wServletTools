@@ -389,7 +389,7 @@ function postDataGet( o )
   let con = _.Consequence();
 
   _.routineOptions( postDataGet, arguments );
-  _.assert( _.arrayHas( [ 'querystring',  'json' ],  o.mode ) )
+  _.assert( _.longHas( [ 'querystring',  'json' ],  o.mode ) )
 
   if( o.mode === 'querystring' )
   {
