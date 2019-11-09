@@ -18,15 +18,15 @@
   }, 
   "dependencies" : 
   {
-    "wTools" : "", 
-    "wFiles" : "", 
-    "wConsequence" : "", 
-    "wuribasic" : "", 
-    "express" : "", 
-    "morgan" : "", 
-    "serve-index" : "", 
-    "querystring" : ""
+    "wTools" : "alpha", 
+    "wFiles" : "alpha", 
+    "wConsequence" : "alpha", 
+    "wuribasic" : "alpha", 
+    "express" : "4.17.1", 
+    "morgan" : "1.9.1", 
+    "serve-index" : "1.9.1", 
+    "querystring" : "0.2.0"
   }, 
-  "devDependencies" : { "wTesting" : "" }, 
+  "devDependencies" : { "wTesting" : "alpha" }, 
   "keywords" : [ "wTools" ]
 }
