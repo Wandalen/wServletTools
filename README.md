@@ -6,7 +6,7 @@ Collection of routines to launch/stop the server and handle requests to the serv
 ## Try out
 ```
 npm install
-node sample/Sample.s
+node sample/Sample.js
 ```
 
 
