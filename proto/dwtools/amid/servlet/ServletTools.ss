@@ -118,9 +118,7 @@ function controlExpressStart( o )
     Http = require( 'http' );
 
     uri = o.serverPath + ':' + o.port;
-    debugger;
     o.server = Http.createServer( o.express ).listen( o.port, parsedServerPath.host );
-    debugger;
 
   }
 
