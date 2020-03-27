@@ -18,7 +18,7 @@ let Https = null;
 let Http = null;
 let Express = null;
 
-let _ = require( '../../Tools.s' );
+let _ = require( '../../../dwtools/Tools.s' );
 
 _.include( 'wUriBasic' );
 _.include( 'wFiles' );
@@ -48,7 +48,7 @@ function serverPathParse( o )
 
   parsed = _.uri.parseFull( parsed.full );
   parsed.port = Number( parsed.port );
-  parsed.localWebPath = parsed.localWebPath || '/';
+  parsed.resourcePath = parsed.resourcePath || '/';
 
   /* xxx qqq : use _.uri.parsedSupplementFull instead of parseFull */
 
@@ -239,7 +239,7 @@ function controlRequestPostHandle( o )
   if( o.response.finished )
   return;
 
-  debugger;
+  // debugger;
   return _.servlet.errorHandle
   ({
     request : o.request,
