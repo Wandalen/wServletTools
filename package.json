@@ -1,6 +1,6 @@
 {
   "name" : "wservlettools",
-  "version" : "0.3.64",
+  "version" : "0.3.65",
   "description" : "Collection of routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
   "author" : "Kostiantyn Wandalen <wanalen@willbe.so>",
   "license" : "MIT",
@@ -18,15 +18,15 @@
   },
   "dependencies" :
   {
-    "wTools" : "alpha",
-    "wFiles" : "alpha",
-    "wConsequence" : "alpha",
-    "wuribasic" : "alpha",
+    "wTools" : "gamma",
+    "wFiles" : "gamma",
+    "wConsequence" : "gamma",
+    "wuribasic" : "gamma",
     "express" : "4.17.1",
     "morgan" : "1.10.0",
     "serve-index" : "1.9.1",
     "querystring" : "0.2.0"
   },
-  "devDependencies" : { "wTesting" : "alpha" },
+  "devDependencies" : { "wTesting" : "gamma" },
   "keywords" : [ "wTools" ]
 }
