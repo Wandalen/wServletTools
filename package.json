@@ -1,6 +1,6 @@
 {
   "name" : "wservlettools",
-  "version" : "0.3.67",
+  "version" : "0.3.68",
   "description" : "Collection of routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
