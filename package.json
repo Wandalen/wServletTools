@@ -6,7 +6,7 @@
   "license" : "MIT",
   "main" : "proto/dwtools/amid/servlet/ServletTools.ss",
   "files" : [ "proto/dwtools/amid/servlet", "proto/dwtools/Tools.s" ],
-  "scripts" : { "test" : "wtest .run proto", "docgen" : "wdocgen proto" },
+  "scripts" : { "test" : "wtest .run proto rapidity:-3", "docgen" : "wdocgen proto" },
   "repository" :
   {
     "type" : "git",
