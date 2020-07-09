@@ -18,7 +18,7 @@ let Https = null;
 let Http = null;
 let Express = null;
 
-let _ = require( '../../../dwtools/Tools.s' );
+let _ = require( '../../../wtools/Tools.s' );
 
 _.include( 'wUriBasic' );
 _.include( 'wFiles' );
