@@ -2,10 +2,13 @@ format: outwillfile-2.0
 root:
   - wServletTools.out
 consistency:
-  ../.ex.will.yml: &ref_0
+  wServletTools.out.will.yml: &ref_0
+    hash: 64f0a23d985b7d2dd919f8f3d32f648b
+    size: 39365
+  ../.ex.will.yml: &ref_1
     hash: b61700ed9db9afb7138161e6ba51fb1a
     size: 1841
-  ../.im.will.yml: &ref_1
+  ../.im.will.yml: &ref_2
     hash: 29ebe028926e061576c52cf8156e9794
     size: 5443
 module:
@@ -19,18 +22,18 @@ module:
         applications simpler.
       enabled: 1
       version: 0.4.0
-      interpreters: &ref_2
+      interpreters:
         - njs >= 10.0.0
         - chrome >= 60.0.0
         - firefox >= 60.0.0
-      keywords: &ref_3
+      keywords:
         - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: &ref_4
+      contributors:
         - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: wservlettools
-      npm.scripts: &ref_5
+      npm.scripts:
         test: wtest .run proto/**
         docgen: wdocgen .build proto
     path:
@@ -714,6 +717,24 @@ module:
           content: prime
         inherit:
           - files.transpile
+      exported.proto.export:
+        opts:
+          filePath: 'reflector::exported.proto.export'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
+      exported.files.proto.export:
+        opts:
+          filePath: 'reflector::exported.files.proto.export'
+        criterion:
+          generated: 1
+          content: proto
+          export: 1
+        inherit:
+          - files.reflect
     build:
       proto.export:
         steps:
@@ -802,8 +823,9 @@ module:
           content: proto
           export: 1
     consistency:
-      ../.ex.will.yml: *ref_0
-      ../.im.will.yml: *ref_1
+      wServletTools.out.will.yml: *ref_0
+      ../.ex.will.yml: *ref_1
+      ../.im.will.yml: *ref_2
   ../:
     about:
       name: wServletTools
@@ -814,13 +836,20 @@ module:
         applications simpler.
       enabled: 1
       version: 0.4.0
-      interpreters: *ref_2
-      keywords: *ref_3
+      interpreters:
+        - njs >= 10.0.0
+        - chrome >= 60.0.0
+        - firefox >= 60.0.0
+      keywords:
+        - wTools
       license: MIT
       author: Kostiantyn Wandalen <wanalen@01.school>
-      contributors: *ref_4
+      contributors:
+        - Kostiantyn Wandalen <wanalen@01.school>
       npm.name: wservlettools
-      npm.scripts: *ref_5
+      npm.scripts:
+        test: wtest .run proto/**
+        docgen: wdocgen .build proto
     path:
       module.willfiles:
         criterion:
@@ -1511,3 +1540,6 @@ module:
       ../.im.will.yml:
         hash: 29ebe028926e061576c52cf8156e9794
         size: 5443
+      wServletTools.out.will.yml:
+        hash: 64f0a23d985b7d2dd919f8f3d32f648b
+        size: 39365
