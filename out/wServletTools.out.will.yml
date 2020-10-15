@@ -17,7 +17,7 @@ module:
       name: wServletTools
       org: noorg
       description: >-
-        Collection of routines to launch/stop the server and handle requests to
+        Collection of cross-platform routines to launch/stop the server and handle requests to
         the server. The module is trying to make the development of server-side
         applications simpler.
       enabled: 1
@@ -831,7 +831,7 @@ module:
       name: wServletTools
       org: noorg
       description: >-
-        Collection of routines to launch/stop the server and handle requests to
+        Collection of cross-platform routines to launch/stop the server and handle requests to
         the server. The module is trying to make the development of server-side
         applications simpler.
       enabled: 1

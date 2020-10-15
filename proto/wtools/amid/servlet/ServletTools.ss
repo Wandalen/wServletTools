@@ -3,12 +3,12 @@
 'use strict';
 
 /**
- * Collection of routines to launch / stop server and handle requests from server. The module is trying to make development of server-sde applications simpler.Collection of routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.
+ * Collection of cross-platform routines to launch / stop server and handle requests from server. The module is trying to make development of server-sde applications simpler.Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.
   @module Tools/mid/ServletTools
 */
 
 /**
- *@summary Collection of routines to launch/stop the server and handle requests to the server.
+ *@summary Collection of cross-platform routines to launch/stop the server and handle requests to the server.
   @namespace Tools.wServletTools 
   @memberof module:Tools/mid/ServletTools
 */

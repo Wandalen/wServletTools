@@ -2,7 +2,7 @@
 about :
 
   name : 'wServletTools'
-  description : 'Collection of routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.'
+  description : 'Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.'
   version : '0.4.0'
   enabled : 1
   interpreters :
