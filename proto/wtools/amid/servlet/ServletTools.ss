@@ -9,7 +9,7 @@
 
 /**
  *@summary Collection of cross-platform routines to launch/stop the server and handle requests to the server.
-  @namespace Tools.wServletTools 
+  @namespace Tools.wServletTools
   @memberof module:Tools/mid/ServletTools
 */
 
