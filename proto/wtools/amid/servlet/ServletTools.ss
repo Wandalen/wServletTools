@@ -1,4 +1,5 @@
-(function _ServletTools_ss_() {
+(function _ServletTools_ss_()
+{
 
 'use strict';
 
@@ -163,7 +164,7 @@ function controlPathesNormalize( o )
     let component = o.servlet[ c ];
     if( _.strIs( component ) && _.strBegins( c, 'uri' ) )
     {
-      if( !component ) continue;
+      if( !component )continue;
       o.servlet[ c ] = _.path.normalize( o.servlet[ c ] );
     }
   }
@@ -175,7 +176,7 @@ function controlPathesNormalize( o )
     let component = o.servlet[ c ];
     if( _.strIs( component ) && _.strBegins( c, 'path' ) )
     {
-      if( !component ) continue;
+      if( !component )continue;
       o.servlet[ c ] = _.path.normalize( o.servlet[ c ] );
     }
   }
@@ -419,7 +420,7 @@ function postDataGet( o )
         o.request.data = decodeURIComponent( o.request.data );
         o.request.data = JSON.parse( o.request.data );
       }
-      else if ( o.mode === 'querystring' )
+      else if( o.mode === 'querystring' )
       {
         o.request.data = Querystring.parse( o.request.data );
       }
