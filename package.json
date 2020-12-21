@@ -1,6 +1,6 @@
 {
   "name" : "wservlettools",
-  "version" : "0.3.103",
+  "version" : "0.3.104",
   "description" : "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
@@ -27,6 +27,6 @@
     "serve-index" : "1.9.1",
     "querystring" : "0.2.0"
   },
-  "devDependencies" : { "wTesting" : "alpha" },
+  "devDependencies" : { "eslint" : "7.1.0", "wTesting" : "alpha" },
   "keywords" : [ "wTools" ]
 }
