@@ -1552,6 +1552,4 @@ module:
       ../.im.will.yml:
         hash: 1a261ce4a1255ab7210e5e9f531b88c1
         size: 5551
-      wServletTools.out.will.yml:
-        hash: 1db4a1b15ad2dae45f2050e56f134b82
-        size: 39672
+      wServletTools.out.will.yml: *ref_0
