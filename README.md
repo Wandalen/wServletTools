@@ -8,7 +8,7 @@ Collection of cross-platform routines to launch/stop the server and handle reque
 git clone https://github.com/Wandalen/wServletTools
 cd wServletTools
 npm install
-node sample/Sample.s
+node sample/trivial/Sample.s
 ```
 
 ## To add to your project
