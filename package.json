@@ -1,32 +1,40 @@
 {
-  "name" : "wservlettools",
-  "version" : "0.3.109",
-  "description" : "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "license" : "MIT",
-  "main" : "proto/wtools/amid/servlet/ServletTools.ss",
-  "files" : [ "proto/wtools/amid/servlet", "proto/wtools/Tools.s" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/Wandalen/wServletTools.git"
+  "name": "wservlettools",
+  "version": "0.3.110",
+  "description": "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "license": "MIT",
+  "main": "proto/wtools/amid/servlet/ServletTools.ss",
+  "files": [
+    "proto/wtools/amid/servlet",
+    "proto/wtools/Tools.s"
+  ],
+  "scripts": {
+    "test": "wtest .run 'proto/**' rapidity:-3",
+    "docgen": "wdocgen proto"
   },
-  "bugs" :
-  {
-    "url" : "https://github.com/Wandalen/wServletTools/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wServletTools.git"
   },
-  "dependencies" :
-  {
-    "wTools" : "alpha",
-    "wFiles" : "alpha",
-    "wConsequence" : "alpha",
-    "wuribasic" : "alpha",
-    "express" : "4.17.1",
-    "morgan" : "1.10.0",
-    "serve-index" : "1.9.1",
-    "querystring" : "0.2.0"
+  "bugs": {
+    "url": "https://github.com/Wandalen/wServletTools/issues"
   },
-  "devDependencies" : { "eslint" : "7.1.0", "wTesting" : "alpha" },
-  "keywords" : [ "wTools" ]
+  "dependencies": {
+    "wTools": "alpha",
+    "wFiles": "alpha",
+    "wConsequence": "alpha",
+    "wuribasic": "alpha",
+    "express": "4.17.1",
+    "morgan": "1.10.0",
+    "serve-index": "1.9.1",
+    "querystring": "0.2.0"
+  },
+  "devDependencies": {
+    "eslint": "7.1.0",
+    "wTesting": "alpha"
+  },
+  "keywords": [
+    "wTools"
+  ]
 }
