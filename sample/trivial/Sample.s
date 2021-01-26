@@ -1,5 +1,5 @@
 
-let _ = require( '..' /* 'wservlettools' */ );
+let _ = require( 'wservlettools' );
 
 /**/
 
