@@ -124,9 +124,9 @@ function controlExpressStart( o )
   }
 
   if( o.verbosity >= 3 )
-  logger.log( o.name,  ':', 'express.locals :', '' + _.toStrNice( o.express.locals ) );
+  logger.log( o.name, ':', 'express.locals :', '' + _.toStrNice( o.express.locals ) );
   if( o.verbosity )
-  logger.log( o.name,  ':', `serving at ${o.serverPath}..`, '\n' )
+  logger.log( o.name, ':', `serving at ${o.serverPath}..`, '\n' )
 
   return o;
 }
@@ -195,9 +195,9 @@ function controlAllowCrossDomain( o )
 
   _.routineOptions( controlAllowCrossDomain, arguments );
 
-  o.response.setHeader( 'Access-Control-Allow-Origin',  '*' );
-  o.response.setHeader( 'Access-Control-Allow-Headers',  'X-Requested-With' );
-  o.response.setHeader( 'Access-Control-Allow-Methods',  'GET,  PUT,  POST,  DELETE' );
+  o.response.setHeader( 'Access-Control-Allow-Origin', '*' );
+  o.response.setHeader( 'Access-Control-Allow-Headers', 'X-Requested-With' );
+  o.response.setHeader( 'Access-Control-Allow-Methods', 'GET,  PUT,  POST,  DELETE' );
 
 }
 
@@ -304,7 +304,7 @@ function controlLoggingPost( o )
     let component = o.servlet[ c ];
     if( _.strIs( component ) && _.strBegins( c, 'db' ) )
     {
-      logger.log( c,  ' :',  component );
+      logger.log( c, ' :', component );
     }
   }
 
@@ -315,7 +315,7 @@ function controlLoggingPost( o )
     let component = o.servlet[ c ];
     if( _.strIs( component ) && _.strBegins( c, 'uri' ) )
     {
-      logger.log( c,  ' :',  component );
+      logger.log( c, ' :', component );
     }
   }
 
@@ -326,7 +326,7 @@ function controlLoggingPost( o )
     let component = o.servlet[ c ];
     if( _.strIs( component ) && _.strBegins( c, 'path' ) )
     {
-      logger.log( c,  ' :',  component );
+      logger.log( c, ' :', component );
     }
   }
 
@@ -388,7 +388,7 @@ function postDataGet( o )
   let con = _.Consequence();
 
   _.routineOptions( postDataGet, arguments );
-  _.assert( _.longHas( [ 'querystring',  'json' ],  o.mode ) )
+  _.assert( _.longHas( [ 'querystring', 'json' ], o.mode ) )
 
   if( o.mode === 'querystring' )
   {
@@ -401,19 +401,19 @@ function postDataGet( o )
 
     o.request.data = '';
 
-    o.request.on( 'data',  function( data )
+    o.request.on( 'data', function( data )
     {
       if( o.request.data.length + data.length > o.sizeLimit )
       {
         debugger;
         let err = _.err( `Request entity is too large ${o.request.data.length}\nsizelimit is ${o.sizeLimit}` );
-        o.response.json( { error : err.message },  413 );
+        o.response.json( { error : err.message }, 413 );
         con.error( err );
       }
       o.request.data += data;
     });
 
-    o.request.on( 'end',  function()
+    o.request.on( 'end', function()
     {
       if( o.mode === 'json' )
       {
