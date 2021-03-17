@@ -405,7 +405,6 @@ function postDataGet( o )
     {
       if( o.request.data.length + data.length > o.sizeLimit )
       {
-        debugger;
         let err = _.err( `Request entity is too large ${o.request.data.length}\nsizelimit is ${o.sizeLimit}` );
         o.response.json( { error : err.message }, 413 );
         con.error( err );
