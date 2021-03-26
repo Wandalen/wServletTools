@@ -1,6 +1,6 @@
 {
   "name": "wservlettools",
-  "version": "0.3.129",
+  "version": "0.3.130",
   "description": "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
   "author": "Kostiantyn Wandalen <wanalen@01.school>",
   "license": "MIT",
@@ -21,10 +21,10 @@
     "url": "https://github.com/Wandalen/wServletTools/issues"
   },
   "dependencies": {
-    "wTools": "gamma",
-    "wFiles": "gamma",
-    "wConsequence": "gamma",
-    "wuribasic": "gamma",
+    "wTools": "delta",
+    "wFiles": "delta",
+    "wConsequence": "delta",
+    "wuribasic": "delta",
     "express": "4.17.1",
     "morgan": "1.10.0",
     "serve-index": "1.9.1",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "eslint": "7.1.0",
-    "wTesting": "gamma",
+    "wTesting": "delta",
     "wservlettools": "file:."
   },
   "keywords": [
