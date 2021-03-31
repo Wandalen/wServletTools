@@ -5,7 +5,7 @@
   "author" : "Kostiantyn Wandalen <wanalen@01.school>",
   "license" : "MIT",
   "main" : "proto/wtools/amid/servlet/ServletTools.ss",
-  "files" : [ "proto/wtools/amid/servlet", "proto/wtools/Tools.s" ],
+  "files" : [ "proto/wtools/amid/servlet", "proto/wtools/Tools.s", "proto/node_modules" ],
   "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
   "repository" :
   {
@@ -27,6 +27,6 @@
     "serve-index" : "",
     "querystring" : ""
   },
-  "devDependencies" : { "wTesting" : "", "eslint" : "7.1.0", "wservlettools" : "file:." },
+  "devDependencies" : { "wTesting" : "", "eslint" : "7.1.0" },
   "keywords" : [ "wTools" ]
 }
