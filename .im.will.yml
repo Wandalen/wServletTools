@@ -98,8 +98,8 @@ path:
       raw: compiled
       content: prime
   npm.proto.entry:
-    - /pro/module/wServletTools/proto/wtools/amid/servlet/ServletTools.ss
-    - /pro/module/wServletTools/proto/node_modules/wservlettools
+    - proto/wtools/amid/servlet/ServletTools.ss
+    - proto/node_modules/wservlettools
 reflector:
   reflect.proto:
     inherit: predefined.*
