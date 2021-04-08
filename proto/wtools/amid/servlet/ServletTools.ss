@@ -19,7 +19,7 @@ let Https = null;
 let Http = null;
 let Express = null;
 
-let _ = require( '../../../node_modules/Tools' );
+const _ = require( '../../../node_modules/Tools' );
 
 _.include( 'wUriBasic' );
 _.include( 'wFiles' );
