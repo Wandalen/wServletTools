@@ -36,7 +36,7 @@ function serverPathParse( o )
 {
   let uri;
 
-  _.routineOptions( serverPathParse, arguments );
+  _.routine.options_( serverPathParse, arguments );
 
   let parsed = _.uri.parseAtomic( o.full );
 
@@ -68,7 +68,7 @@ function controlExpressStart( o )
 {
   let uri;
 
-  _.routineOptions( controlExpressStart, arguments );
+  _.routine.options_( controlExpressStart, arguments );
   _.assert( !!o.name, 'Expects {-name-}' );
   _.assert( _.boolLike( o.usingHttps ), 'Expects {-o.usingHttps-}' );
   _.assert( _.boolLike( o.allowCrossDomain ), 'Expects {-o.allowCrossDomain-}' );
@@ -154,7 +154,7 @@ controlExpressStart.defaults =
 function controlPathesNormalize( o )
 {
 
-  _.routineOptions( controlPathesNormalize, arguments );
+  _.routine.options_( controlPathesNormalize, arguments );
   _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
 
   /* uri */
@@ -193,7 +193,7 @@ controlPathesNormalize.defaults =
 function controlAllowCrossDomain( o )
 {
 
-  _.routineOptions( controlAllowCrossDomain, arguments );
+  _.routine.options_( controlAllowCrossDomain, arguments );
 
   o.response.setHeader( 'Access-Control-Allow-Origin', '*' );
   o.response.setHeader( 'Access-Control-Allow-Headers', 'X-Requested-With' );
@@ -232,7 +232,7 @@ controlRequestPreHandle.defaults =
 
 function controlRequestPostHandle( o )
 {
-  _.routineOptions( controlRequestPostHandle, arguments );
+  _.routine.options_( controlRequestPostHandle, arguments );
 
   // if( o.response.finished )
   // return o.next( o.request, o.response, o.next );
@@ -264,7 +264,7 @@ controlRequestPostHandle.defaults =
 function controlLoggingPre( o )
 {
 
-  _.routineOptions( controlLoggingPre, arguments );
+  _.routine.options_( controlLoggingPre, arguments );
   _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
 
   if( !o.servlet.verbosity )
@@ -289,7 +289,7 @@ controlLoggingPre.defaults =
 function controlLoggingPost( o )
 {
 
-  _.routineOptions( controlLoggingPost, arguments );
+  _.routine.options_( controlLoggingPost, arguments );
   _.assert( o.servlet.verbosity !== undefined, 'Expects { verbosity }' );
 
   if( !o.servlet.verbosity )
@@ -358,7 +358,7 @@ function errorHandle( o )
   o.err = _.errBrief( 'Not found' );
   o.err = _.err( o.err );
 
-  _.routineOptions( errorHandle, arguments );
+  _.routine.options_( errorHandle, arguments );
 
   if( !o.response.finished )
   {
@@ -387,7 +387,7 @@ function postDataGet( o )
 {
   let con = _.Consequence();
 
-  _.routineOptions( postDataGet, arguments );
+  _.routine.options_( postDataGet, arguments );
   _.assert( _.longHas( [ 'querystring', 'json' ], o.mode ) )
 
   if( o.mode === 'querystring' )
@@ -473,7 +473,7 @@ let Proto =
 
 }
 
-_.mapExtend( Self, Proto );
+_.props.extend( Self, Proto );
 
 // --
 // export
