@@ -43,7 +43,7 @@ function serverPathParse( o )
   parsed.port = parsed.port || o.port || 5000;
   if( _.strIs( parsed.port ) )
   parsed.port = Number( parsed.port );
-  _.sure( _.numberIsFinite( parsed.port ), () => 'Expects number {-o.port-}, but got ' + _.entity.exportStringShallow( parsed.port ) );
+  _.sure( _.numberIsFinite( parsed.port ), () => 'Expects number {-o.port-}, but got ' + _.entity.exportStringDiagnosticShallow( parsed.port ) );
 
   parsed.full = _.uri.str( parsed );
 
@@ -87,7 +87,7 @@ function controlExpressStart( o )
   let parsedServerPath = _.servlet.serverPathParse({ port : o.port, full : o.serverPath });
   o.serverPath = parsedServerPath.full;
   o.port = parsedServerPath.port;
-  _.sure( _.numberIsFinite( o.port ), () => 'Expects number {-o.port-}, but got ' + _.entity.exportStringShallow( o.port ) );
+  _.sure( _.numberIsFinite( o.port ), () => 'Expects number {-o.port-}, but got ' + _.entity.exportStringDiagnosticShallow( o.port ) );
 
   if( !o.express )
   o.express = Express();
