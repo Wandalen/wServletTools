@@ -25,8 +25,7 @@ _.include( 'wUriBasic' );
 _.include( 'wFiles' );
 _.include( 'wConsequence' );
 
-const Parent = null;
-const Self = _.servlet = _.servlet || Object.create( null );
+_.servlet = _.servlet || Object.create( null );
 
 // --
 // servlet
@@ -473,13 +472,13 @@ let Proto =
 
 }
 
-_.props.extend( Self, Proto );
+/* _.props.extend */Object.assign( _.servlet, Proto );
 
 // --
 // export
 // --
 
 if( typeof module !== 'undefined' )
-module[ 'exports' ] = Self;
+module[ 'exports' ] = _.servlet;
 
 })();
