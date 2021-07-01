@@ -1,32 +1,42 @@
 {
-  "name" : "wservlettools",
-  "version" : "0.3.150",
-  "description" : "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
-  "author" : "Kostiantyn Wandalen <wanalen@01.school>",
-  "license" : "MIT",
-  "main" : "proto/node_modules/wservlettools",
-  "files" : [ "proto/wtools/amid/servlet", "proto/node_modules", "proto/node_modules/Tools", "proto/node_modules/wservlettools" ],
-  "scripts" : { "test" : "wtest .run 'proto/**' rapidity:-3", "docgen" : "wdocgen proto" },
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://github.com/Wandalen/wServletTools.git"
+  "name": "wservlettools",
+  "version": "0.3.151",
+  "description": "Collection of cross-platform routines to launch/stop the server and handle requests to the server. The module is trying to make the development of server-side applications simpler.",
+  "author": "Kostiantyn Wandalen <wanalen@01.school>",
+  "license": "MIT",
+  "main": "proto/node_modules/wservlettools",
+  "files": [
+    "proto/wtools/amid/servlet",
+    "proto/node_modules",
+    "proto/node_modules/Tools",
+    "proto/node_modules/wservlettools"
+  ],
+  "scripts": {
+    "test": "wtest .run 'proto/**' rapidity:-3",
+    "docgen": "wdocgen proto"
   },
-  "bugs" :
-  {
-    "url" : "https://github.com/Wandalen/wServletTools/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wandalen/wServletTools.git"
   },
-  "dependencies" :
-  {
-    "wTools" : "gamma",
-    "wFiles" : "gamma",
-    "wConsequence" : "gamma",
-    "wuribasic" : "gamma",
-    "express" : "4.17.1",
-    "morgan" : "1.10.0",
-    "serve-index" : "1.9.1",
-    "querystring" : "0.2.1"
+  "bugs": {
+    "url": "https://github.com/Wandalen/wServletTools/issues"
   },
-  "devDependencies" : { "eslint" : "7.1.0", "wTesting" : "gamma" },
-  "keywords" : [ "wTools" ]
+  "dependencies": {
+    "wuribasic": "gamma",
+    "wTools": "gamma",
+    "wFiles": "gamma",
+    "wConsequence": "gamma",
+    "serve-index": "1.9.1",
+    "querystring": "0.2.1",
+    "morgan": "1.10.0",
+    "express": "4.17.1"
+  },
+  "devDependencies": {
+    "wTesting": "gamma",
+    "eslint": "7.1.0"
+  },
+  "keywords": [
+    "wTools"
+  ]
 }
