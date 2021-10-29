@@ -3,8 +3,8 @@ root:
   - wServletTools.out
 consistency:
   ../will.yml: &ref_0
-    hash: 77b5c88637e2166bda47f7e7e51c51c4
-    size: 7026
+    hash: f5849ce46bc485223645600693b972a6
+    size: 6885
 module:
   wServletTools.out:
     about:
@@ -394,9 +394,6 @@ module:
           content: npm
         inherit:
           - module.export
-      npm.publish:
-        opts:
-          shell: npm publish
       npm.generate.debug.raw:
         opts:
           entryPath: 'path::entry.out.*=1'
@@ -732,12 +729,6 @@ module:
           - 'step::doc.export'
         criterion:
           content: doc
-          export: 1
-      npm.export:
-        steps:
-          - 'step::npm.publish'
-        criterion:
-          content: npm
           export: 1
       export:
         steps:
@@ -1116,9 +1107,6 @@ module:
           content: npm
         inherit:
           - module.export
-      npm.publish:
-        opts:
-          shell: npm publish
       npm.generate.debug.raw:
         opts:
           entryPath: 'path::entry.out.*=1'
@@ -1455,12 +1443,6 @@ module:
         criterion:
           content: doc
           export: 1
-      npm.export:
-        steps:
-          - 'step::npm.publish'
-        criterion:
-          content: npm
-          export: 1
       export:
         steps:
           - 'build::proto.export'
@@ -1518,5 +1500,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: 77b5c88637e2166bda47f7e7e51c51c4
-        size: 7026
+        hash: f5849ce46bc485223645600693b972a6
+        size: 6885
