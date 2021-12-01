@@ -3,8 +3,8 @@ root:
   - wServletTools.out
 consistency:
   ../will.yml: &ref_0
-    hash: f5849ce46bc485223645600693b972a6
-    size: 6885
+    hash: 4486abfc7ffa58432e30a4870a95941b
+    size: 6893
 module:
   wServletTools.out:
     about:
@@ -1500,5 +1500,5 @@ module:
           - 'build::npm'
     consistency:
       ../will.yml:
-        hash: f5849ce46bc485223645600693b972a6
-        size: 6885
+        hash: 4486abfc7ffa58432e30a4870a95941b
+        size: 6893
